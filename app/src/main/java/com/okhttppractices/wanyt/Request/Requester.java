@@ -65,7 +65,7 @@ public class Requester {
             //Log拦截
             if(AppConfig.DEBUG){
                 RequestLoggingInterceptor httpLoggingInterceptor = new RequestLoggingInterceptor();
-                httpLoggingInterceptor.setLevel(RequestLoggingInterceptor.Level.BODY);
+//                httpLoggingInterceptor.setLevel(RequestLoggingInterceptor.Level.BODY);
                 builder.addInterceptor(httpLoggingInterceptor);
             }
 

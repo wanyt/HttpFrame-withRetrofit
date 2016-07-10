@@ -1,4 +1,4 @@
-package com.okhttppractices.wanyt.Request;
+package com.okhttppractices.wanyt.framelib;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -26,9 +26,9 @@ import static okhttp3.internal.Platform.INFO;
  * <p/>
  * author wanyt
  * <p/>
- * Description:请求和相应的拦截类
+ * Description:请求和响应的拦截类，本类应该放在应用的框架层
  */
-public class RequestLoggingInterceptor implements Interceptor {
+public class HttpLogInterceptor implements Interceptor {
 
     private static final Charset UTF8 = Charset.forName("UTF-8");
 
@@ -43,11 +43,11 @@ public class RequestLoggingInterceptor implements Interceptor {
         };
     }
 
-    public RequestLoggingInterceptor() {
+    public HttpLogInterceptor() {
         this(Logger.DEFAULT);
     }
 
-    public RequestLoggingInterceptor(Logger logger) {
+    public HttpLogInterceptor(Logger logger) {
         this.logger = logger;
     }
 
@@ -165,7 +165,8 @@ public class RequestLoggingInterceptor implements Interceptor {
             if (contentLength != 0) {
                 logger.log("");
                 String readString = buffer.clone().readString(charset);
-                com.orhanobut.logger.Logger.json(readString);
+                com.orhanobut.logger.Logger.json(readString);//可以在LogCat中直接打印格式化好的响应数据
+//                logger.log(readString);//如果希望打印的log数据不是十分占用logcat的空间可以用这个
             }
 
             logger.log("<-- 响应结束 (" + buffer.size() + "-byte body)");

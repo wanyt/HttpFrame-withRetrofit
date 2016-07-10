@@ -1,83 +1,48 @@
-package com.okhttppractices.wanyt.Request;
+package com.okhttppractices.wanyt.request;
 
-import com.okhttppractices.wanyt.AppConfig;
-import com.okhttppractices.wanyt.http.HttpApi;
+import com.okhttppractices.wanyt.framelib.RequestEngine;
 
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import java.util.HashMap;
+
+import okhttp3.ResponseBody;
+import rx.Observable;
 
 /**
- * Created on 2016/7/9 13:27
- * <p>
+ * Created on 2016/7/10 12:40
+ * <p/>
  * author wanyt
- * <p>
- * Description:创建Retrofit
+ * <p/>
+ * Description:发起请求，返回可以获取数据的对象
  */
 public class Requester {
 
-    private Requester() {}
-    public static Requester instance(){
-        return SingleInsance.requester;
-    }
-    private static class SingleInsance{
-        private static final Requester requester = new Requester();
-    }
-
-    private static Retrofit retrofit;
-    private static Retrofit retrofitWithRx;
-
     /**
-     * 不带RxJava的请求
+     * 登陆
+     * @param queryMap
+     * @return
      */
-    public void createRequest(){
-
+    public static Observable<ResponseBody> requestLogin(HashMap<String, String> queryMap){
+        return getRequestEngineWithRx(HttpMethod.class).login(queryMap);
     }
 
     /**
-     * 带RxJava的请求
+     * 获取不带有RxJava的Retrofit实例
+     * @param clazz
+     * @param <T>
+     * @return
      */
-    public <T>T createRxRequest(Class<T> clazz){
-        return createServiceWithRx().create(clazz);
+    public static <T> T getRequestEngine(Class<T> clazz){
+        return RequestEngine.instance().createRequest(clazz);
     }
 
-    private Retrofit createServiceWithRx() {
-        if(retrofitWithRx == null){
-            OkHttpClient.Builder builder = new OkHttpClient.Builder();
-
-            //设置公共参数
-//            Interceptor interceptor = new Interceptor() {
-//
-//                @Override
-//                public Response intercept(Chain chain) throws IOException {
-//                    Request request = chain.request();
-////                    Response response = chain.proceed(request);
-//
-//                    Logger.d(request.body());
-////                    Logger.d(response.body());
-//
-//                    return chain.proceed(request);
-//                }
-//            };
-//            builder.addInterceptor(interceptor);
-            //设置请求头
-
-            //Log拦截
-            if(AppConfig.DEBUG){
-                RequestLoggingInterceptor httpLoggingInterceptor = new RequestLoggingInterceptor();
-//                httpLoggingInterceptor.setLevel(RequestLoggingInterceptor.Level.BODY);
-                builder.addInterceptor(httpLoggingInterceptor);
-            }
-
-            OkHttpClient client = builder.build();
-            retrofitWithRx = new Retrofit.Builder()
-                    .baseUrl(HttpApi.domain)
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .client(client)
-                    .build();
-        }
-        return retrofitWithRx;
+    /**
+     * 获取带有RxJava的Retrofit实例
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public static <T> T getRequestEngineWithRx(Class<T> clazz){
+        return RequestEngine.instance().createRxRequest(clazz);
     }
-
 
 }

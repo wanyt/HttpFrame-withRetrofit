@@ -1,5 +1,8 @@
 package com.okhttppractices.wanyt.http;
 
+import com.okhttppractices.wanyt.request.HttpApi;
+import com.okhttppractices.wanyt.request.HttpMethod;
+
 import okhttp3.OkHttpClient;
 //import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

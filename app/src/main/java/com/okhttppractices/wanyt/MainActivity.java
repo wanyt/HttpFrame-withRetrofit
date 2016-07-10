@@ -4,8 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
-import com.okhttppractices.wanyt.Request.Requester;
-import com.okhttppractices.wanyt.http.HttpMethod;
+import com.okhttppractices.wanyt.request.Requester;
 import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
@@ -27,27 +26,12 @@ public class MainActivity extends AppCompatActivity {
     Button btLogin;
     @BindView(R.id.bt_hot)
     Button btHot;
-//    @BindView(R.id.edit_url)
-//    EditText etUrl;
-
-//    private HttpMethod requestMethod;
-//    private HttpMethod phpMethods;
-
-    private HttpMethod newRequester;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-//        RetrofitBuilder request = RetrofitBuilder.getIntance();
-
-//        requestMethod =  request.getHttpMethods();
-//        phpMethods = request.getPhpMethods();
-
-        Requester requester = Requester.instance();
-        newRequester = requester.createRxRequest(HttpMethod.class);
     }
 
     @OnClick(R.id.bt_hot)
@@ -63,9 +47,7 @@ public class MainActivity extends AppCompatActivity {
         map.put("pwd", "aabc11");
         map.put("sid", "21000000000");
 
-//        Observable<ResponseBody> login = newRequester.login(map);
-
-        newRequester.login(map)
+        Requester.requestLogin(map)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ResponseBody>() {
@@ -83,13 +65,12 @@ public class MainActivity extends AppCompatActivity {
                     public void onNext(ResponseBody responseBody) {
                         try {
                             String response = responseBody.string();
-                            Logger.d(response);
+                            Logger.d( "success:"+response);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-        });
-
+                });
     }
 
     @OnClick(R.id.button)

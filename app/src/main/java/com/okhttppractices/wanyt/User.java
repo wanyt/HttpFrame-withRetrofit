@@ -1,4 +1,4 @@
-package com.okhttppractices.wanyt.http;
+package com.okhttppractices.wanyt;
 
 /**
  * Created on 2016/7/4 15:14
@@ -7,7 +7,7 @@ package com.okhttppractices.wanyt.http;
  * <p/>
  * Description:
  */
-public class User extends CommonModel {
+public class User {
     public String id;
     public String systime;
 }

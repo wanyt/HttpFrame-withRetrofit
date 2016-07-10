@@ -1,10 +1,11 @@
 package com.okhttppractices.wanyt.request;
 
+import com.okhttppractices.wanyt.User;
 import com.okhttppractices.wanyt.framelib.RequestEngine;
 
 import java.util.HashMap;
 
-import okhttp3.ResponseBody;
+import retrofit2.Call;
 import rx.Observable;
 
 /**
@@ -17,12 +18,16 @@ import rx.Observable;
 public class Requester {
 
     /**
-     * 登陆
+     * 登陆Rx
      * @param queryMap
      * @return
      */
-    public static Observable<ResponseBody> requestLogin(HashMap<String, String> queryMap){
-        return getRequestEngineWithRx(HttpMethod.class).login(queryMap);
+    public static Observable<User> requestLoginRx(HashMap<String, String> queryMap){
+        return getRequestEngineWithRx(HttpMethod.class).loginRx(queryMap);
+    }
+
+    public static Call<User> requestLogin(HashMap<String, String> queryMap){
+        return getRequestEngine(HttpMethod.class).login(queryMap);
     }
 
     /**

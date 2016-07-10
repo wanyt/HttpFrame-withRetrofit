@@ -6,6 +6,7 @@ import com.okhttppractices.wanyt.request.HttpApi;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created on 2016/7/9 13:27
@@ -35,6 +36,7 @@ public class RequestEngine {
             OkHttpClient client = setHttpConfig();
             retrofit = new Retrofit.Builder()
                     .baseUrl(HttpApi.domain)
+                    .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();
         }
@@ -50,6 +52,7 @@ public class RequestEngine {
             retrofitWithRx = new Retrofit.Builder()
                     .baseUrl(HttpApi.domain)
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();
         }

@@ -1,11 +1,11 @@
 package com.okhttppractices.wanyt.request;
 
+import com.okhttppractices.wanyt.User;
+
 import java.util.Map;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
@@ -18,17 +18,12 @@ import rx.Observable;
  */
 public interface HttpMethod {
 
-    @GET("/act/actList")
-    Call<ResponseBody> huodong(
+    @GET("/center/login")
+    Call<User> login(
             @QueryMap Map<String, String> map);
 
     @GET("/center/login")
-    Observable<ResponseBody> login(
-            @QueryMap Map<String, String> map);
-
-
-    @POST("/app/api/getChannelTitleList")
-    Call<ResponseBody> hot(
+    Observable<User> loginRx(
             @QueryMap Map<String, String> map);
 
 }

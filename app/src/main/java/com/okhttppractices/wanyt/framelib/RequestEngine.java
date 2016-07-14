@@ -67,9 +67,51 @@ public class RequestEngine {
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
-        //设置公共参数
+        //这里可以设置公共参数
+//        Interceptor genericParams = new Interceptor() {
+//            @Override
+//            public Response intercept(Chain chain) throws IOException {
+//                Request request = chain.request();
+//
+//                HttpUrl httpUrl = request.url().newBuilder()
+//                        .addQueryParameter("userName", "aabc")
+//                        .addQueryParameter("pwd", "aabc11")
+//                        .addQueryParameter("pwd", "aabc11")
+//                        .build();
+//                Request requestWithParam = request.newBuilder().url(httpUrl).build();
+//
+//                return chain.proceed(requestWithParam);
+//            }
+//        };
+//        builder.addInterceptor(genericParams);
 
         //设置请求头
+//        Interceptor headers = new Interceptor() {
+//
+//            @Override
+//            public Response intercept(Chain chain) throws IOException {
+//                Request request = chain.request();
+//                Request.Builder header = request.newBuilder()
+//                        .header("platform", "android")
+//                        .header("platform", "android")
+//                        .header("platform", "android")
+//                        .header("platform", "android")
+//                        .header("platform", "android")
+//                        .header("platform", "android")
+//                        .header("platform", "android");
+//
+//                Request build = header.build();
+//                return chain.proceed(build);
+//            }
+//        };
+//        builder.addInterceptor(headers);
+
+        //设置超时
+//        builder.connectTimeout(15, TimeUnit.SECONDS);
+//        builder.readTimeout(20, TimeUnit.SECONDS);
+//        builder.writeTimeout(20, TimeUnit.SECONDS);
+        //错误重连
+//        builder.retryOnConnectionFailure(true);
 
         //Log拦截,以及缓存最近的请求和响应
         if(AppConfig.DEBUG){

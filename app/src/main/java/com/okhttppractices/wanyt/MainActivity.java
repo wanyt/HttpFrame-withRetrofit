@@ -4,7 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
-import com.okhttppractices.wanyt.request.Requester;
+import com.okhttppractices.wanyt.framelib.NetworkError;
+import com.okhttppractices.wanyt.network.CallBackWrapper;
+import com.okhttppractices.wanyt.network.ObserverWrapper;
+import com.okhttppractices.wanyt.network.netrequester.RxRequester;
+import com.okhttppractices.wanyt.network.responsemodel.User;
 import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
@@ -13,11 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import rx.Observable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,19 +40,23 @@ public class MainActivity extends AppCompatActivity {
         map.put("pwd", "aabc11");
         map.put("sid", "21000000000");
 
-        Call<User> login = Requester.requestLogin(map);
-        login.enqueue(new Callback<User>() {
+        Call<User> call = com.okhttppractices.wanyt.network.netrequester.Requester.getInstance().requestMenu(map);
+
+        call.enqueue(new CallBackWrapper<User>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                User body = response.body();
+            protected void success(Call<User> call, User body) {
+                Logger.d(call.request());
                 Logger.d(body.systime);
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
-
+            protected void error(Call<User> call, NetworkError t) {
+                Logger.d(t.toString());
             }
         });
+
+
+
     }
 
     @OnClick(R.id.bt_login_rx)
@@ -62,23 +66,23 @@ public class MainActivity extends AppCompatActivity {
         map.put("pwd", "aabc11");
         map.put("sid", "21000000000");
 
-        Requester.requestLoginRx(map)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<User>() {
-                    @Override
-                    public void onCompleted() {
-                        Logger.d("request completed");
-                    }
+        Observable<User> userObservable = RxRequester.getInstance().requestMenu(map);
 
+        userObservable
+                .subscribe(new ObserverWrapper<User>() {
                     @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(User user) {
+                    protected void next(User user) {
                         Logger.d( "success:"+user.systime);
+                    }
+
+                    @Override
+                    protected void completed() {
+                        Logger.d("completed");
+                    }
+
+                    @Override
+                    protected void error(NetworkError networkError) {
+                        Logger.d(networkError.toString());
                     }
                 });
     }

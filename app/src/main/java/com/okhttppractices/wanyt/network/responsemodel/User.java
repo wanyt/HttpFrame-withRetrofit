@@ -1,4 +1,4 @@
-package com.okhttppractices.wanyt;
+package com.okhttppractices.wanyt.network.responsemodel;
 
 /**
  * Created on 2016/7/4 15:14

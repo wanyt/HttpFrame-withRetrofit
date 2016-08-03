@@ -1,6 +1,6 @@
 package com.okhttppractices.wanyt.network.netservice;
 
-import com.okhttppractices.wanyt.network.responsemodel.User;
+import com.okhttppractices.wanyt.network.responsemodel.Menu;
 
 import java.util.Map;
 
@@ -17,7 +17,7 @@ import retrofit2.http.QueryMap;
  */
 public interface RequestService {
 
-    @GET("/center/login")
-    Call<User> login(@QueryMap Map<String, String> param);
+    @GET("/cook/query.php")
+    Call<Menu> menu(@QueryMap Map<String, String> param);
 
 }

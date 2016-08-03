@@ -2,7 +2,7 @@ package com.okhttppractices.wanyt.network.netrequester;
 
 import com.okhttppractices.wanyt.framelib.RequestEngine;
 import com.okhttppractices.wanyt.network.netservice.RxRequestService;
-import com.okhttppractices.wanyt.network.responsemodel.User;
+import com.okhttppractices.wanyt.network.responsemodel.Menu;
 
 import java.util.Map;
 
@@ -26,8 +26,8 @@ public class RxRequester {
         private static RxRequester rxRequester = new RxRequester();
     }
 
-    public Observable<User> requestMenu(Map<String, String> map){
-        return getService().login(map)
+    public Observable<Menu> requestMenu(Map<String, String> map){
+        return getService().menu(map)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }

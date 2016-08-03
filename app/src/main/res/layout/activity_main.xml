@@ -24,4 +24,11 @@
         android:layout_marginTop="10dp"
         android:id="@+id/bt_login_rx"/>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rl_cook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+    </android.support.v7.widget.RecyclerView>
+
 </LinearLayout>

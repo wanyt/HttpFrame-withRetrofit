@@ -2,13 +2,16 @@ package com.okhttppractices.wanyt;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 
 import com.okhttppractices.wanyt.framelib.NetworkError;
 import com.okhttppractices.wanyt.network.CallBackWrapper;
 import com.okhttppractices.wanyt.network.ObserverWrapper;
+import com.okhttppractices.wanyt.network.netrequester.Requester;
 import com.okhttppractices.wanyt.network.netrequester.RxRequester;
-import com.okhttppractices.wanyt.network.responsemodel.User;
+import com.okhttppractices.wanyt.network.responsemodel.Menu;
 import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
@@ -17,7 +20,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
-import rx.Observable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,54 +27,67 @@ public class MainActivity extends AppCompatActivity {
     Button btLogin;
     @BindView(R.id.bt_login_rx)
     Button btLoginRx;
+    @BindView(R.id.rl_cook)
+    RecyclerView rlCook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        recyclerViewConfig();
+    }
+
+    private void recyclerViewConfig() {
+        rlCook.setLayoutManager(new LinearLayoutManager(this));
+//        MenuAdapter adapter = new MenuAdapter();
+
     }
 
     @OnClick(R.id.bt_login)
     public void getHotThing(){
         HashMap<String, String> map = new HashMap<>();
-        map.put("userName", "aabc");
-        map.put("pwd", "aabc11");
-        map.put("sid", "21000000000");
+        map.put("menu", "红烧肉");
+        map.put("dtype", "json");
+        map.put("pn", "0");
+        map.put("rn", "5");
+        map.put("albums", "");
+        map.put("key", "259b339f1d15119eb310d72228bccd67");
 
-        Call<User> call = com.okhttppractices.wanyt.network.netrequester.Requester.getInstance().requestMenu(map);
+        Requester.getInstance()
+                .requestMenu(map)
+                .enqueue(new CallBackWrapper<Menu>() {
+                    @Override
+                    protected void success(Call<Menu> call, Menu cook) {
+                        Logger.d(call.request());
+                        Logger.d(cook.toString());
+                    }
 
-        call.enqueue(new CallBackWrapper<User>() {
-            @Override
-            protected void success(Call<User> call, User body) {
-                Logger.d(call.request());
-                Logger.d(body.systime);
-            }
-
-            @Override
-            protected void error(Call<User> call, NetworkError t) {
-                Logger.d(t.toString());
-            }
-        });
-
-
+                    @Override
+                    protected void error(Call<Menu> call, NetworkError t) {
+                        Logger.d(t.toString());
+                    }
+                });
 
     }
 
     @OnClick(R.id.bt_login_rx)
     public void login(){
         HashMap<String, String> map = new HashMap<>();
-        map.put("userName", "aabc");
-        map.put("pwd", "aabc11");
-        map.put("sid", "21000000000");
+        map.put("menu", "红烧肉");
+        map.put("dtype", "json");
+        map.put("pn", "0");
+        map.put("rn", "5");
+        map.put("albums", "");
+        map.put("key", "259b339f1d15119eb310d72228bccd67");
 
-        Observable<User> userObservable = RxRequester.getInstance().requestMenu(map);
-
-        userObservable
-                .subscribe(new ObserverWrapper<User>() {
+        RxRequester.getInstance()
+                .requestMenu(map)
+                .subscribe(new ObserverWrapper<Menu>() {
                     @Override
-                    protected void next(User user) {
-                        Logger.d( "success:"+user.systime);
+                    protected void next(Menu cook) {
+                        Logger.d( "success:"+cook.toString());
                     }
 
                     @Override

@@ -1,7 +1,7 @@
 package com.okhttppractices.wanyt.framelib;
 
 import com.okhttppractices.wanyt.AppConfig;
-import com.okhttppractices.wanyt.request.HttpApi;
+import com.okhttppractices.wanyt.network.HttpApi;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

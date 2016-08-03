@@ -1,8 +1,8 @@
 package com.okhttppractices.wanyt.network.netrequester;
 
-import com.okhttppractices.wanyt.network.responsemodel.User;
 import com.okhttppractices.wanyt.framelib.RequestEngine;
 import com.okhttppractices.wanyt.network.netservice.RequestService;
+import com.okhttppractices.wanyt.network.responsemodel.Menu;
 
 import java.util.Map;
 
@@ -28,8 +28,8 @@ public class Requester {
      * @param param
      * @return
      */
-    public Call<User> requestMenu(Map<String, String> param){
-        return getRequestEngine().login(param);
+    public Call<Menu> requestMenu(Map<String, String> param){
+        return getRequestEngine().menu(param);
     }
 
     /**

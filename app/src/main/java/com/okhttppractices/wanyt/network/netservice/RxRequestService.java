@@ -1,6 +1,6 @@
 package com.okhttppractices.wanyt.network.netservice;
 
-import com.okhttppractices.wanyt.network.responsemodel.User;
+import com.okhttppractices.wanyt.network.responsemodel.Menu;
 
 import java.util.Map;
 
@@ -17,7 +17,7 @@ import rx.Observable;
  */
 public interface RxRequestService {
 
-    @GET("/center/login")
-    Observable<User> login(@QueryMap Map<String, String> map);
+    @GET("/cook/query.php")
+    Observable<Menu> menu(@QueryMap Map<String, String> map);
 
 }

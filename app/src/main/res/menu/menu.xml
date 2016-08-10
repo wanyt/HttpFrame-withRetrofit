@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.okhttppractices.wanyt.ui.ActivityNormal" >
 
     <item
-        android:id="@+id/main_menu_normal"
-        android:title="正常的请求"/>
+        android:id="@+id/normal_menu_hongshaorou"
+        android:title="红烧肉"/>
     <item
-        android:id="@+id/main_menu_rx"
-        android:title="带RxJava的请求"/>
+        android:id="@+id/normal_menu_gobaojiding"
+        android:title="宫保鸡丁"/>
+
+    <item
+        android:id="@+id/normal_menu_maoxuewang"
+        android:title="毛血旺"/>
+    <item
+        android:id="@+id/normal_menu_soup"
+        android:title="西湖牛肉羹"/>
+
+    <item
+        android:id="@+id/normal_menu_roujiamo"
+        android:title="肉夹馍"/>
+    <item
+        android:id="@+id/normal_menu_fotiaoqiang"
+        android:title="佛跳墙"/>
 
 </menu>

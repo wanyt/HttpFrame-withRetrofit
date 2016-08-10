@@ -1,4 +1,4 @@
-package com.okhttppractices.wanyt;
+package com.okhttppractices.wanyt.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.okhttppractices.wanyt.App;
+import com.okhttppractices.wanyt.CookStepAdapter;
+import com.okhttppractices.wanyt.R;
 import com.okhttppractices.wanyt.network.responsemodel.Menu;
 
 import java.util.List;

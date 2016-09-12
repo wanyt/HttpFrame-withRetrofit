@@ -2,15 +2,7 @@
 
 > 项目处于维护阶段
 
-使用Retrofit封装了网络请求
-
-## 项目使用到的技术
-
-* Retrofit请求网络
-* Material控件CollapsingToolbarLayout
-* Retrofit下载，上传文件（待添加）
-* 在调试模式下查看最近请求和响应（待添加）
-* mvp架构（待添加）
+使用Retrofit封装了网络请求，搭建项目的时候可以参考本项目的封装方式，因为没有找到合适的测试服务器，所以下载文件和文件上传没有demo。
 
 ## 预览
 
@@ -18,7 +10,7 @@
 ![](previous/screen_2.png)
 ![](previous/screen_3.png)
 
-## 使用到的库
+## 使用到的第三方库
 
 [ButterKnife](https://github.com/JakeWharton/butterknife)
 [Logger](https://github.com/orhanobut/logger)
@@ -26,13 +18,6 @@
 [RxJava](https://github.com/ReactiveX/RxJava)
 [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 [Glide](https://github.com/bumptech/glide)
-
-## 待添加功能
-
-* 网络请求的debug弹窗，在debug模式下可以显示近十次的请求和响应
-* 网络请求缓存；在没有网络或者数据没有请求回来的时候显示缓存内容
-* 使用mvp优化应用架构
-* 添加下载，上传文件的模块
 
 # 关于我
 

@@ -20,10 +20,10 @@
 
         <activity android:name=".ui.ActivityCookSteps"/>
 
-        <activity android:name=".ui.ActivityNormal"
+        <activity android:name=".ui.mvp.normal.ActivityNormal"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".ui.ActivityRx"
+        <activity android:name=".ui.mvp.rx.ActivityRx"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".ui.ActivityDownload"/>

@@ -32,10 +32,10 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
     private ArrayList<Menu.ResultBean.Cook> list;
     private LayoutInflater from;
 
-    public MenuListAdapter(Context context, ArrayList<Menu.ResultBean.Cook> list) {
+    public MenuListAdapter(Context context) {
         this.context = context;
-        this.list = list;
         from = LayoutInflater.from(context);
+        this.list = new ArrayList<>();
     }
 
     public void setData(ArrayList<Menu.ResultBean.Cook> data) {

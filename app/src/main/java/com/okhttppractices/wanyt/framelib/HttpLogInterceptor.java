@@ -26,7 +26,7 @@ import static okhttp3.internal.Platform.INFO;
  * <p/>
  * author wanyt
  * <p/>
- * Description:请求和响应的拦截类，本类应该放在应用的框架层
+ * Description:请求和响应的拦截类
  */
 public class HttpLogInterceptor implements Interceptor {
 

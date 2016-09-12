@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import com.okhttppractices.wanyt.R;
+import com.okhttppractices.wanyt.ui.mvp.normal.ActivityNormal;
+import com.okhttppractices.wanyt.ui.mvp.rx.ActivityRx;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

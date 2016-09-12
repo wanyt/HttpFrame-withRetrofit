@@ -1,4 +1,4 @@
-package com.okhttppractices.wanyt.ui;
+package com.okhttppractices.wanyt.ui.mvp.normal;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,13 +13,10 @@ import android.view.View;
 import com.okhttppractices.wanyt.MenuListAdapter;
 import com.okhttppractices.wanyt.R;
 import com.okhttppractices.wanyt.framelib.NetworkError;
-import com.okhttppractices.wanyt.network.ObserverWrapper;
-import com.okhttppractices.wanyt.network.netrequester.RxRequester;
 import com.okhttppractices.wanyt.network.responsemodel.Menu;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,9 +26,9 @@ import butterknife.ButterKnife;
  * <p>
  * author wanyt
  * <p>
- * Description:使用RxJava请求的Activity
+ * Description:不使用RxJava请求的Activity
  */
-public class ActivityRx extends AppCompatActivity {
+public class ActivityNormal extends AppCompatActivity implements ActivityNormalContract.View {
 
     @BindView(R.id.toolbar_normal)
     Toolbar toolbar;
@@ -40,14 +37,14 @@ public class ActivityRx extends AppCompatActivity {
     @BindView(R.id.rl_cook)
     RecyclerView rlCook;
     private MenuListAdapter adapter;
+    private ActivityNormalPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_normal);
-        ButterKnife.bind(this);
-
         setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -57,48 +54,44 @@ public class ActivityRx extends AppCompatActivity {
             }
         });
 
-        collapsingToolbarLayout.setTitle("RX_REQUEST");
+        collapsingToolbarLayout.setTitle("NORMAL");
 
         initList();
-        requestCook("红烧肉");
-    }
 
-    ArrayList<Menu.ResultBean.Cook> listMenu = new ArrayList<>();
+        presenter = new ActivityNormalPresenter(this);
+        presenter.loadData("红烧肉");
+    }
 
     private void initList() {
         rlCook.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MenuListAdapter(this, listMenu);
+        adapter = new MenuListAdapter(this);
         rlCook.setAdapter(adapter);
     }
 
-    private void requestCook(String cook) {
-        HashMap<String, String> map = new HashMap<>();
-        map.put("menu", cook);
-        map.put("dtype", "json");
-        map.put("pn", "0");
-        map.put("rn", "20");
-        map.put("albums", "");
-        map.put("key", "259b339f1d15119eb310d72228bccd67");
+    @Override
+    public void showLoadingView() {
 
-        RxRequester.getInstance()
-                .requestMenu(map)
-                .subscribe(new ObserverWrapper<Menu>() {
-                    @Override
-                    protected void next(Menu cook) {
-                        ArrayList<Menu.ResultBean.Cook> data = cook.result.data;
-                        adapter.setData(data);
-                    }
+    }
 
-                    @Override
-                    protected void completed() {
-                        Logger.d("completed");
-                    }
+    @Override
+    public void dismissLodingView() {
 
-                    @Override
-                    protected void error(NetworkError networkError) {
-                        Logger.d(networkError.toString());
-                    }
-                });
+    }
+
+    @Override
+    public void setPresenter(ActivityNormalContract.Presenter presenter) {
+
+    }
+
+    @Override
+    public void onLoadDataResult(Menu result) {
+        ArrayList<Menu.ResultBean.Cook> data = result.result.data;
+        adapter.setData(data);
+    }
+
+    @Override
+    public void onLoadDataError(NetworkError error) {
+        Logger.d(error.toString());
     }
 
     @Override
@@ -112,22 +105,22 @@ public class ActivityRx extends AppCompatActivity {
         int itemId = item.getItemId();
         switch (itemId){
             case R.id.normal_menu_hongshaorou:
-                requestCook("红烧肉");
+                presenter.loadData("红烧肉");
                 break;
             case R.id.normal_menu_gobaojiding:
-                requestCook("宫保鸡丁");
+                presenter.loadData("宫保鸡丁");
                 break;
             case R.id.normal_menu_maoxuewang:
-                requestCook("毛血旺");
+                presenter.loadData("毛血旺");
                 break;
             case R.id.normal_menu_soup:
-                requestCook("西湖牛肉羹");
+                presenter.loadData("西湖牛肉羹");
                 break;
             case R.id.normal_menu_roujiamo:
-                requestCook("肉夹馍");
+                presenter.loadData("肉夹馍");
                 break;
             case R.id.normal_menu_fotiaoqiang:
-                requestCook("佛跳墙");
+                presenter.loadData("佛跳墙");
                 break;
         }
         return super.onOptionsItemSelected(item);

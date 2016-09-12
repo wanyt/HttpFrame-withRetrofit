@@ -1,4 +1,4 @@
-package com.okhttppractices.wanyt.ui;
+package com.okhttppractices.wanyt.ui.mvp.rx;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,8 +13,8 @@ import android.view.View;
 import com.okhttppractices.wanyt.MenuListAdapter;
 import com.okhttppractices.wanyt.R;
 import com.okhttppractices.wanyt.framelib.NetworkError;
-import com.okhttppractices.wanyt.network.CallBackWrapper;
-import com.okhttppractices.wanyt.network.netrequester.Requester;
+import com.okhttppractices.wanyt.network.ObserverWrapper;
+import com.okhttppractices.wanyt.network.netrequester.RxRequester;
 import com.okhttppractices.wanyt.network.responsemodel.Menu;
 import com.orhanobut.logger.Logger;
 
@@ -23,16 +23,15 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
 
 /**
  * Created on 2016/8/10 10:37
  * <p>
  * author wanyt
  * <p>
- * Description:不使用RxJava请求的Activity
+ * Description:使用RxJava请求的Activity
  */
-public class ActivityNormal extends AppCompatActivity {
+public class ActivityRx extends AppCompatActivity {
 
     @BindView(R.id.toolbar_normal)
     Toolbar toolbar;
@@ -58,7 +57,7 @@ public class ActivityNormal extends AppCompatActivity {
             }
         });
 
-        collapsingToolbarLayout.setTitle("NORMAL");
+        collapsingToolbarLayout.setTitle("RX_REQUEST");
 
         initList();
         requestCook("红烧肉");
@@ -81,18 +80,23 @@ public class ActivityNormal extends AppCompatActivity {
         map.put("albums", "");
         map.put("key", "259b339f1d15119eb310d72228bccd67");
 
-        Requester.getInstance()
+        RxRequester.getInstance()
                 .requestMenu(map)
-                .enqueue(new CallBackWrapper<Menu>() {
+                .subscribe(new ObserverWrapper<Menu>() {
                     @Override
-                    protected void success(Call<Menu> call, Menu cook) {
+                    protected void next(Menu cook) {
                         ArrayList<Menu.ResultBean.Cook> data = cook.result.data;
                         adapter.setData(data);
                     }
 
                     @Override
-                    protected void error(Call<Menu> call, NetworkError t) {
-                        Logger.d(t.toString());
+                    protected void completed() {
+                        Logger.d("completed");
+                    }
+
+                    @Override
+                    protected void error(NetworkError networkError) {
+                        Logger.d(networkError.toString());
                     }
                 });
     }

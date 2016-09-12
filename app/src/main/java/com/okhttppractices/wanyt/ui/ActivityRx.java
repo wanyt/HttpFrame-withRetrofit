@@ -63,8 +63,6 @@ public class ActivityRx extends AppCompatActivity {
         requestCook("红烧肉");
     }
 
-//    ArrayList<Menu.ResultBean.Cook> listMenu = new ArrayList<>();
-
     private void initList() {
         rlCook.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MenuListAdapter(this);

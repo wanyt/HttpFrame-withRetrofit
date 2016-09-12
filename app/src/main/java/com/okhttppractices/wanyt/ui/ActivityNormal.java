@@ -46,9 +46,9 @@ public class ActivityNormal extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_normal);
-        setSupportActionBar(toolbar);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +66,7 @@ public class ActivityNormal extends AppCompatActivity {
         rlCook.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MenuListAdapter(this);
         rlCook.setAdapter(adapter);
+        loadData("红烧肉");
     }
 
     private void loadData(String cook){

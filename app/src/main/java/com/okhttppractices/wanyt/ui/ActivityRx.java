@@ -1,4 +1,4 @@
-package com.okhttppractices.wanyt.ui.mvp.rx;
+package com.okhttppractices.wanyt.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -63,11 +63,11 @@ public class ActivityRx extends AppCompatActivity {
         requestCook("红烧肉");
     }
 
-    ArrayList<Menu.ResultBean.Cook> listMenu = new ArrayList<>();
+//    ArrayList<Menu.ResultBean.Cook> listMenu = new ArrayList<>();
 
     private void initList() {
         rlCook.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MenuListAdapter(this, listMenu);
+        adapter = new MenuListAdapter(this);
         rlCook.setAdapter(adapter);
     }
 

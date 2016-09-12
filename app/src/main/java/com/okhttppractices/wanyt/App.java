@@ -22,6 +22,8 @@ public class App extends Application {
         return Single.app;
     }
 
+    public List<Menu.ResultBean.Cook.StepsBean> steps;
+
     public List<Menu.ResultBean.Cook.StepsBean> getSteps() {
         return steps;
     }
@@ -29,7 +31,5 @@ public class App extends Application {
     public void setSteps(List<Menu.ResultBean.Cook.StepsBean> steps) {
         this.steps = steps;
     }
-
-    public List<Menu.ResultBean.Cook.StepsBean> steps;
 
 }

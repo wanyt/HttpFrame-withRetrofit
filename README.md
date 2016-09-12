@@ -12,12 +12,12 @@
 
 ## 使用到的第三方库
 
-[ButterKnife](https://github.com/JakeWharton/butterknife)
-[Logger](https://github.com/orhanobut/logger)
-[Retrofit](https://github.com/square/retrofit)
-[RxJava](https://github.com/ReactiveX/RxJava)
-[RxAndroid](https://github.com/ReactiveX/RxAndroid)
-[Glide](https://github.com/bumptech/glide)
+* [ButterKnife](https://github.com/JakeWharton/butterknife)
+* [Logger](https://github.com/orhanobut/logger)
+* [Retrofit](https://github.com/square/retrofit)
+* [RxJava](https://github.com/ReactiveX/RxJava)
+* [RxAndroid](https://github.com/ReactiveX/RxAndroid)
+* [Glide](https://github.com/bumptech/glide)
 
 # 关于我
 

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.mvp.normal.ActivityNormal" >
+    tools:context=".ui.ActivityNormal" >
 
     <item
         android:id="@+id/normal_menu_hongshaorou"
